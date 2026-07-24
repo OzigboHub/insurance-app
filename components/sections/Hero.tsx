@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowRight, Phone, ShieldCheck, Zap, Award, Sparkles, CheckCircle2 } from "lucide-react";
 import { siteConfig } from "@/content/site-config";
 import Globe from "@/components/ui/Globe";
 
