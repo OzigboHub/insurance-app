@@ -1,6 +1,6 @@
 import { Hero } from "@/components/sections/Hero";
 import { ServicesGrid } from "@/components/sections/ServicesGrid";
-import { FAQAccordion } from "@/components/sections/FAQAccordion";
+// import { FAQAccordion } from "@/components/sections/FAQAccordion";
 import Link from "next/link";
 import { Shield, ArrowRight, MessageCircle } from "lucide-react";
 import { siteConfig } from "@/content/site-config";
@@ -66,13 +66,13 @@ export default function Home() {
       </div>
 
       {/* FAQ Section Header */}
-      <div className="pt-12 text-center max-w-3xl mx-auto px-4">
+      {/* <div className="pt-12 text-center max-w-3xl mx-auto px-4">
         <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
           Got Questions? <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">We Have Answers</span>
         </h2>
       </div>
 
-      <FAQAccordion />
+      <FAQAccordion /> */}
     </div>
   );
 }
