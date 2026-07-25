@@ -33,10 +33,10 @@ export function Hero() {
           {/* Left Column: Text & CTAs */}
           <div className="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
             
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-6 backdrop-blur-md">
+            {/* <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-6 backdrop-blur-md">
               <Sparkles className="h-4 w-4 text-blue-400" />
               <span>Direct AIICO Financial Advisory</span>
-            </div>
+            </div> */}
 
             <h1 className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl leading-tight">
               <span className="block xl:inline">Secure your future with</span>{" "}

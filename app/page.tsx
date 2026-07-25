@@ -13,10 +13,10 @@ export default function Home() {
 
       {/* Services Section Header */}
       <div className="pt-16 pb-4 text-center max-w-3xl mx-auto px-4">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-4">
+        {/* <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-4">
           <Shield className="h-3.5 w-3.5" />
           <span>Tailored AIICO Insurance Coverage</span>
-        </div>
+        </div> */}
         <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
           Explore Our Comprehensive <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Policies</span>
         </h2>
