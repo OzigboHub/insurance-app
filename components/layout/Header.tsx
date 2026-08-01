@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Phone, Shield, Sparkles } from "lucide-react";
+import { Menu, X, Phone, Shield } from "lucide-react";
 import { useState } from "react";
 import { siteConfig } from "@/content/site-config";
 
@@ -33,7 +33,7 @@ export function Header() {
                 {siteConfig.name}
               </span>
               <span className="hidden sm:flex items-center gap-1 text-[10px] font-semibold text-blue-400">
-                <Sparkles className="h-2.5 w-2.5 text-blue-400" /> Accredited AIICO Agent
+                <Shield className="h-2.5 w-2.5 text-blue-400" /> Accredited AIICO Agent
               </span>
             </div>
           </Link>

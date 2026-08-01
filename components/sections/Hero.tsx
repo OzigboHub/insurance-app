@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Phone, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, Phone, ShieldCheck } from "lucide-react";
 import { siteConfig } from "@/content/site-config";
 import Globe from "@/components/ui/Globe";
 
@@ -33,10 +33,7 @@ export function Hero() {
           {/* Left Column: Text & CTAs */}
           <div className="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
             
-            {/* <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-6 backdrop-blur-md">
-              <Sparkles className="h-4 w-4 text-blue-400" />
-              <span>Direct AIICO Financial Advisory</span>
-            </div> */}
+
 
             <h1 className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl leading-tight">
               <span className="block xl:inline">Secure your future with</span>{" "}
@@ -98,7 +95,7 @@ export function Hero() {
                 <div className="aspect-[4/5] relative">
                   <Image
                     src="/images/emmanuel-oziegbe.jpg"
-                    alt="Emmanuel Oziegbe - Accredited AIICO Financial Advisor"
+                    alt="Sabinus Okpara - Unit Manager"
                     fill
                     priority
                     className="object-cover object-top"
@@ -113,8 +110,8 @@ export function Hero() {
                       <ShieldCheck className="h-6 w-6" />
                     </div>
                     <div>
-                      <p className="text-sm font-extrabold text-white tracking-tight">Emmanuel Oziegbe</p>
-                      <p className="text-xs text-blue-400 font-semibold">Accredited AIICO Financial Advisor</p>
+                      <p className="text-sm font-extrabold text-white tracking-tight">Sabinus Okpara</p>
+                      <p className="text-xs text-blue-400 font-semibold">Unit Manager</p>
                     </div>
                   </div>
 

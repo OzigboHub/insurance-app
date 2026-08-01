@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { services } from "@/content/services";
-import { Send, CheckCircle2, Sparkles, AlertCircle, HelpCircle, FileText, User, Mail, Phone, MessageSquare } from "lucide-react";
+import { Send, CheckCircle2, AlertCircle, HelpCircle, FileText, User, Mail, Phone, MessageSquare, Shield } from "lucide-react";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Full name is required"),
@@ -74,7 +74,7 @@ export function ContactForm() {
       {/* Form Mode Tabs */}
       <div className="flex items-center justify-between border-b border-slate-800 pb-6 mb-8 gap-2">
         <div className="flex items-center gap-2">
-          <Sparkles className="h-5 w-5 text-blue-400" />
+          <Shield className="h-5 w-5 text-blue-400" />
           <h2 className="text-xl font-bold text-white tracking-tight">Direct Consultation</h2>
         </div>
 

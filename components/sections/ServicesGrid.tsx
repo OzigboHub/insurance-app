@@ -3,7 +3,7 @@
 import { services, ServiceItem } from "@/content/services";
 import Link from "next/link";
 import { useState } from "react";
-import { CheckCircle2, ArrowRight, Sparkles, X, Shield, Info } from "lucide-react";
+import { CheckCircle2, ArrowRight, X, Shield, Info } from "lucide-react";
 
 interface ServicesGridProps {
   limit?: number;
@@ -82,7 +82,7 @@ export function ServicesGrid({ limit, showFilters = true }: ServicesGridProps) {
 
                     {service.badge && (
                       <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-300 border border-blue-500/20 backdrop-blur-md">
-                        <Sparkles className="h-3 w-3 text-blue-400" />
+                        <CheckCircle2 className="h-3 w-3 text-blue-400" />
                         {service.badge}
                       </span>
                     )}

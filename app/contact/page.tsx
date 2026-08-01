@@ -87,7 +87,6 @@ export default function ContactPage() {
             <div className="bg-slate-900/40 p-6 rounded-2xl border border-slate-800 backdrop-blur-xl space-y-5">
               <h3 className="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-2">Direct Channels</h3>
 
-              {/* Phone */}
               <a
                 href={`tel:${siteConfig.contact.phone}`}
                 className="flex items-center justify-between p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 hover:border-blue-500/40 transition-colors group"
@@ -99,6 +98,7 @@ export default function ContactPage() {
                   <div>
                     <p className="text-xs text-slate-400 font-medium">Direct Telephone</p>
                     <p className="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">{siteConfig.contact.phone}</p>
+                    <p className="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">{siteConfig.contact.phone2}</p>
                   </div>
                 </div>
                 <ArrowUpRight className="h-4 w-4 text-slate-500 group-hover:text-blue-400 transition-colors" />
