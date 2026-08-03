@@ -94,7 +94,7 @@ export function Hero() {
               <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900/80 backdrop-blur-xl">
                 <div className="aspect-[4/5] relative">
                   <Image
-                    src="/images/emmanuel-oziegbe.jpg"
+                    src="/images/insu.png"
                     alt="Sabinus Okpara - Unit Manager"
                     fill
                     priority
