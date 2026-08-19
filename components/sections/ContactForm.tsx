@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { services } from "@/content/services";
+import { siteConfig } from "@/content/site-config";
 import { Send, CheckCircle2, AlertCircle, HelpCircle, FileText, User, Mail, Phone, MessageSquare, Shield } from "lucide-react";
 
 const contactSchema = z.object({
@@ -47,16 +48,11 @@ export function ContactForm() {
     setErrorMessage("");
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || "Failed to send message. Please try again.");
-      }
+      const message = encodeURIComponent(
+        `*New ${data.inquiryType.toUpperCase()} Inquiry*\n\n*Name:* ${data.name}\n*Phone:* ${data.phone}\n*Email:* ${data.email}\n*Service:* ${data.service}\n\n*Message:*\n${data.message}`
+      );
+      
+      window.open(`https://wa.me/${siteConfig.contact.whatsapp}?text=${message}`, '_blank');
 
       setStatus("success");
       reset();

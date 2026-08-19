@@ -14,6 +14,7 @@ export function Header() {
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Services & Policies", href: "/services" },
+    { name: "Proposal Forms", href: "/forms" },
     { name: "FAQ Hub", href: "/faq" },
     { name: "Contact & Quote", href: "/contact" },
   ];
