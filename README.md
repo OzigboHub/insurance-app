@@ -12,7 +12,7 @@ yarn dev
 pnpm dev
 # or
 bun dev
-```
+```..
 
 Open [http://localhost:1241](http://localhost:1241) with your browser to see the result.
 
