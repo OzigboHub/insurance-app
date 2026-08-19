@@ -7,7 +7,10 @@ export async function generateProposalPDF(data: {
   referenceTag: string;
   formData: any;
   signature?: string;
+  consentSignature?: string;
   passportPhoto?: string;
+  addressProof?: string;
+  identityProof?: string;
 }): Promise<Buffer> {
   return new Promise((resolve, reject) => {
     try {
@@ -18,13 +21,25 @@ export async function generateProposalPDF(data: {
       doc.on("end", () => resolve(Buffer.concat(buffers)));
       doc.on("error", (err) => reject(err));
 
-      // Header Branding
+      // Header Branding Banner
       doc.fillColor("#0f172a").rect(0, 0, 595.28, 90).fill();
       doc.font("Helvetica-Bold").fillColor("#60a5fa").fontSize(18).text("AIICO INSURANCE PLC", 40, 20);
       doc.font("Helvetica").fillColor("#ffffff").fontSize(12).text(data.formType, 40, 45);
       doc.font("Helvetica").fillColor("#94a3b8").fontSize(10).text(`Reference Tag: ${data.referenceTag}  |  Date: ${new Date().toLocaleDateString()}`, 40, 63);
 
-      doc.moveDown(3);
+      // Embed Passport Photograph at top-right if available
+      if (data.passportPhoto && data.passportPhoto.startsWith("data:image")) {
+        try {
+          const base64 = data.passportPhoto.replace(/^data:image\/\w+;base64,/, "");
+          const imgBuf = Buffer.from(base64, "base64");
+          doc.image(imgBuf, 460, 105, { fit: [95, 105], align: "center", valign: "center" });
+          doc.rect(460, 105, 95, 105).lineWidth(1).strokeColor("#94a3b8").stroke();
+        } catch (imgErr) {
+          console.warn("Could not embed passport photograph in PDF:", imgErr);
+        }
+      }
+
+      doc.y = 110;
       doc.fillColor("#0f172a");
 
       // Section A: Identity
@@ -46,7 +61,7 @@ export async function generateProposalPDF(data: {
       doc.font("Helvetica").fontSize(10).fillColor("#334155");
       doc.text(`Address: ${data.formData.streetAddress || "N/A"}, ${data.formData.cityTown || ""}, ${data.formData.state || ""}`);
       doc.text(`Email: ${data.email}  |  Mobile: ${data.formData.homeMobile || data.formData.homeMobile1 || "N/A"}`);
-      doc.text(`Proof of Address Attached: ${data.formData.addressProofDoc || "Yes"}`);
+      doc.text(`Proof of Address Attached: ${data.addressProof ? "Yes (Attached)" : (data.formData.addressProofDoc || "Yes")}`);
 
       doc.moveDown(1);
 
@@ -83,22 +98,75 @@ export async function generateProposalPDF(data: {
       doc.font("Helvetica").fontSize(9).fillColor("#475569");
       doc.text("I hereby declare that all answers provided in this proposal form are true and accurate to the best of my knowledge, and agree that this statement forms the basis of the insurance contract.");
 
-      doc.moveDown(1);
+      doc.moveDown(0.8);
       doc.font("Helvetica-Bold").fontSize(10).fillColor("#0f172a").text(`Signed by: ${data.applicantName}`);
+      doc.moveDown(0.3);
 
-      // Embed Base64 Signature Image if available
+      // Embed Base64 Signature Image
       if (data.signature && data.signature.startsWith("data:image")) {
         try {
           const base64Data = data.signature.replace(/^data:image\/\w+;base64,/, "");
           const imgBuffer = Buffer.from(base64Data, "base64");
-          doc.image(imgBuffer, { width: 140, height: 50 });
+          doc.image(imgBuffer, { width: 140, height: 45 });
+          doc.moveDown(0.5);
         } catch (imgErr) {
           console.warn("Failed to render signature image in PDF:", imgErr);
         }
       }
 
-      doc.moveDown(1);
+      // Embed Data Privacy Consent Signature if provided
+      if (data.consentSignature && data.consentSignature !== data.signature && data.consentSignature.startsWith("data:image")) {
+        try {
+          doc.font("Helvetica-Bold").fontSize(9).fillColor("#1e3a8a").text("Data Privacy Consent Signature:");
+          doc.moveDown(0.2);
+          const base64Data = data.consentSignature.replace(/^data:image\/\w+;base64,/, "");
+          const imgBuffer = Buffer.from(base64Data, "base64");
+          doc.image(imgBuffer, { width: 140, height: 45 });
+          doc.moveDown(0.5);
+        } catch (imgErr) {
+          console.warn("Failed to render consent signature in PDF:", imgErr);
+        }
+      }
+
+      doc.moveDown(0.5);
       doc.font("Helvetica").fontSize(8).fillColor("#94a3b8").text("Generated via AIICO Insurance Accredited Agent Online Proposal Portal", { align: "center" });
+
+      // Appendix Page for Uploaded KYC Verification Documents
+      const hasIdentityImg = data.identityProof && data.identityProof.startsWith("data:image");
+      const hasAddressImg = data.addressProof && data.addressProof.startsWith("data:image");
+
+      if (hasIdentityImg || hasAddressImg) {
+        doc.addPage();
+        doc.fillColor("#0f172a").rect(0, 0, 595.28, 60).fill();
+        doc.font("Helvetica-Bold").fillColor("#60a5fa").fontSize(14).text("AIICO INSURANCE PLC - KYC VERIFICATION ATTACHMENTS", 40, 22);
+        doc.moveDown(3);
+
+        if (hasIdentityImg) {
+          try {
+            doc.font("Helvetica-Bold").fontSize(11).fillColor("#1e3a8a").text("1. Identity Verification Document (NIN / Voter ID / Passport / DL)");
+            doc.moveDown(0.4);
+            const base64 = data.identityProof!.replace(/^data:image\/\w+;base64,/, "");
+            const buf = Buffer.from(base64, "base64");
+            doc.image(buf, { fit: [420, 220] });
+            doc.moveDown(2);
+          } catch (e) {
+            console.warn("Could not embed identity proof image in PDF appendix:", e);
+          }
+        }
+
+        if (hasAddressImg) {
+          try {
+            doc.font("Helvetica-Bold").fontSize(11).fillColor("#1e3a8a").text("2. Proof of Residential Address (Utility Bill / Tenancy)");
+            doc.moveDown(0.4);
+            const base64 = data.addressProof!.replace(/^data:image\/\w+;base64,/, "");
+            const buf = Buffer.from(base64, "base64");
+            doc.image(buf, { fit: [420, 220] });
+            doc.moveDown(1);
+          } catch (e) {
+            console.warn("Could not embed address proof image in PDF appendix:", e);
+          }
+        }
+      }
 
       doc.end();
     } catch (err) {
